@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>追従バナーサンプル</title>
+</head>
+<body>
+  <div id="banner-wrapper"></div>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      height: 2000px;
+      position: relative;
+    }
+    #banner-wrapper {
+      width: 150px;
+      height: 150px;
+      background: red;
+      position: absolute;
+      right: 0;
+      background: url(./banner.png);
+      background-size: contain;
+    }
+  </style>
+
+  <script>
+    const banner = document.getElementById('banner-wrapper')
+    const bannerHeight = banner.offsetHeight
+    const windowHeight = window.innerHeight
+    const displayHeight = windowHeight - (bannerHeight + 30)
+
+    banner.style.top = `${displayHeight}px`
+    banner.style.bottom = 'initial';
+
+    window.addEventListener('scroll', () => {
+      const scrollY = document.documentElement.scrollTop
+      banner.style.top = `${displayHeight + scrollY}px`
+
+      banner.animate([
+        { top: `${displayHeight + scrollY}px` }
+      ], {
+        duration: 2000,
+        easing: 'ease-in-out'
+      })
+    })
+  </script>
+</body>
+</html>
